@@ -24,15 +24,15 @@ target_include_directories(hello_library
 target_compile_definitions(hello_library PRIVATE HELLO_EXPORT)
 
 ############################################################
-# Create an executable
+# 创建可执行文件
 ############################################################
 
-# Add an executable with the above sources
+# 基于源代码添加可执行文件
 add_executable(hello_binary
     src/main.cpp
 )
 
-# link the new hello_library target with the hello_binary target
+# 使用hello_library库的别名链接到hello_binary可执行文件
 target_link_libraries( hello_binary
     PRIVATE 
         hello::library
