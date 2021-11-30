@@ -1,16 +1,17 @@
-= Shared Library
+= 动态库
 :toc:
 :toc-placement!:
 
 toc::[]
 
-# Introduction
+# 介绍
 
-Shows a hello world example which first creates and links a shared library.
+通过创建和链接动态库的方式实现hello world。
 
-This also shows how to create an link:https://cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#alias-targets[alias target]
+并且可以学习到如何link:https://cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#alias-targets[alias target]
 
-The files in this tutorial are below:
+
+文件结构如下:
 
 ```
 $ tree
@@ -24,19 +25,18 @@ $ tree
     └── main.cpp
 ```
 
-  * link:CMakeLists.txt[] - Contains the CMake commands you wish to run
-  * link:include/shared/Hello.h[] - The header file to include
-  * link:src/Hello.cpp[] - A source file to compile
-  * link:src/main.cpp[] - The source file with main
+  * link:CMakeLists.txt[] - 包含可执行的Cmake命令
+  * link:include/shared/Hello.h[] - 包含的头文件
+  * link:src/Hello.cpp[] - 待编译的源文件
+  * link:src/main.cpp[] - 可执行的源文件
 
 
-# Concepts
+# 思路
 
-## Adding a Shared Library
+## 添加一个动态库
 
-As with the previous example on static libraries, the +add_library()+ function
-is also used to create a shared library from some source files.
-This is called as follows:
+与上一个关于静态库的示例一样，+add_library()+ 函数也用于从某些源文件创建共享库。
+命令为:
 
 [source,cmake]
 ----
@@ -45,24 +45,38 @@ add_library(hello_library SHARED
 )
 ----
 
-This will be used to create a shared library with the name libhello_library.so with
-the sources passed to the +add_library()+ function.
+这将用于创建名称为 libhello_library.so 或 libhello_library.dll 的共享库，并将源代码传递给 +add_library()+ 函数。
 
-## Alias Target
+## 链接动态库
 
-As the name suggests an link:https://cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#alias-targets[alias target] is an alternative name for a target that can be used instead of the real target name in read-only contexts.
++target_include_directories()+ 包含库编译用到的头文件，+target_compile_definitions()+ 添加编译选项，windows下需要添加，否则找不到
+
+[source,cmake]
+----
+target_include_directories(hello_library
+    PUBLIC 
+        ${PROJECT_SOURCE_DIR}/include
+)
+
+target_compile_definitions(hello_library PRIVATE HELLO_EXPORT)
+----
+
+## 别名目标
+
+顾名思义，link:https://cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#alias-targets[别名目标]是目标的替代名称，可以在只读上下文中使用，而不是实际目标名称。
 
 [source,cmake]
 ----
 add_library(hello::library ALIAS hello_library)
+
 ----
 
-As shown below, this allows you to reference the target using the alias name when linking it against other targets.
+我们可以使用别名链接到其他目标，后面内容会涉及到。
 
-## Linking a Shared Library
 
-Linking a shared library is the same as linking a static library. When creating your
-executable use the the +target_link_library()+ function to point to your library
+## 链接动态库
+
+链接共享库与链接静态库相同。创建可执行文件时，使用 +target_link_library()+ 函数指向库。
 
 [source,cmake]
 ----
@@ -74,18 +88,21 @@ target_link_libraries(hello_binary
     PRIVATE
         hello::library
 )
+
+
 ----
 
-This tells CMake to link the hello_library against the hello_binary executable using the alias target name.
+CMake 使用别名目标将hello_libraryhello_binary可执行文件链接起来。
 
-An example of this being called by the linker is
+Linux的链接器命令如下
 
 ```
 /usr/bin/c++ CMakeFiles/hello_binary.dir/src/main.cpp.o -o hello_binary -rdynamic libhello_library.so -Wl,-rpath,/home/matrim/workspace/cmake-examples/01-basic/D-shared-library/build
 ```
 
-# Building the Example
-
+# 构建示例
+可直接运行 build.bat 查看效果
+## Linux
 [source,bash]
 ----
 $ mkdir build
@@ -121,5 +138,59 @@ $ ls
 CMakeCache.txt  CMakeFiles  cmake_install.cmake  hello_binary  libhello_library.so  Makefile
 
 $ ./hello_binary
+Hello Shared Library!
+----
+
+## Windows
+[source,bash]
+----
+
+$ mkdir build
+
+$ cd build
+
+$ cmake ..
+-- Building for: Visual Studio 16 2019
+-- Selecting Windows SDK version  to target Windows 10.0.19042.
+-- The C compiler identification is MSVC 19.29.30133.0
+-- The CXX compiler identification is MSVC 19.29.30133.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/Project/CPP/cmake-examples/01-basic/D-shared-library/build
+
+$ cmake --build .
+  Checking Build System
+  Building Custom Rule D:/Project/CPP/cmake-examples/01-basic/D-shared-library/CMakeLists.txt
+  Hello.cpp
+    正在创建库 D:/Project/CPP/cmake-examples/01-basic/D-shared-library/build/Debug/hello_library.lib 和对象 D:/Project/CPP/cmake-exam
+  ples/01-basic/D-shared-library/build/Debug/hello_library.exp
+  hello_library.vcxproj -> D:\Project\CPP\cmake-examples\01-basic\D-shared-library\build\Debug\hello_library.dll
+  Building Custom Rule D:/Project/CPP/cmake-examples/01-basic/D-shared-library/CMakeLists.txt
+  main.cpp
+  hello_binary.vcxproj -> D:\Project\CPP\cmake-examples\01-basic\D-shared-library\build\Debug\hello_binary.exe
+  Building Custom Rule D:/Project/CPP/cmake-examples/01-basic/D-shared-library/CMakeLists.txt
+
+$ ls .\Debug\
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        2021/11/30     19:06          52736 hello_binary.exe
+-a----        2021/11/30     19:06         798720 hello_binary.pdb
+-a----        2021/11/30     19:06          57856 hello_library.dll
+-a----        2021/11/30     19:06           1154 hello_library.exp
+-a----        2021/11/30     19:06           2470 hello_library.lib
+-a----        2021/11/30     19:06         946176 hello_library.pdb
+
+$ .\Debug\hello_binary.exe
 Hello Shared Library!
 ----
