@@ -35,7 +35,7 @@ $ tree
 
 ## 添加一个动态库
 
-与上一个关于静态库的示例一样，+add_library()+ 函数也用于从某些源文件创建共享库。
+与上一个关于静态库的示例一样，+add_library()+ 函数也用于从某些源文件创建动态库。
 命令为:
 
 [source,cmake]
@@ -102,7 +102,9 @@ Linux的链接器命令如下
 
 # 构建示例
 可直接运行 build.bat 查看效果
+
 ## Linux
+
 [source,bash]
 ----
 $ mkdir build
