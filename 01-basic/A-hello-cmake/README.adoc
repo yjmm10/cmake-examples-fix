@@ -162,7 +162,11 @@ the build folder and point it to the directory with your root CMakeLists.txt fil
 Using out-of-source builds if you want to recreate your cmake environment
 from scratch, you only need to delete your build directory and then rerun cmake.
 
-For example:
+示例:
+
+基本命令
+
+##### Linux
 
 [source,bash]
 ----
@@ -229,7 +233,7 @@ A-hello-cmake$ tree
 All examples in this tutorial will use out-of-source builds.
 
 
-# Building the Examples
+## Building the Examples
 
 Below is sample output from building this example.
 
@@ -262,4 +266,79 @@ Linking CXX executable hello_cmake
 
 $ ./hello_cmake
 Hello CMake!
+----
+
+
+[source,bash]
+----
+PS E:\Github\cmake-examples-fix\01-basic\A-hello-cmake> mkdir build
+
+
+    目录: E:\Github\cmake-examples-fix\01-basic\A-hello-cmake
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         2021/12/1     19:34                build
+
+
+PS E:\Github\cmake-examples-fix\01-basic\A-hello-cmake> cd build
+PS E:\Github\cmake-examples-fix\01-basic\A-hello-cmake\build> cmake ..
+-- Building for: Visual Studio 14 2015
+-- Selecting Windows SDK version  to target Windows 10.0.22000.
+-- The C compiler identification is MSVC 19.0.24245.0
+-- The CXX compiler identification is MSVC 19.0.24245.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: E:/Github/cmake-examples-fix/01-basic/A-hello-cmake/build
+PS E:\Github\cmake-examples-fix\01-basic\A-hello-cmake\build> cmake --build .
+用于 .NET Framework 的 Microsoft (R) 生成引擎版本 17.0.0+c9eb9dd64
+版权所有(C) Microsoft Corporation。保留所有权利。
+
+  Checking Build System
+  Building Custom Rule E:/Github/cmake-examples-fix/01-basic/A-hello-cmake/CMakeLists.txt
+  main.cpp
+  hello_cmake.vcxproj -> E:\Github\cmake-examples-fix\01-basic\A-hello-cmake\build\Debug\hello_cmake.exe
+  hello_cmake.vcxproj -> E:/Github/cmake-examples-fix/01-basic/A-hello-cmake/build/Debug/hello_cmake.pdb (Full PDB)
+  Building Custom Rule E:/Github/cmake-examples-fix/01-basic/A-hello-cmake/CMakeLists.txt
+PS E:\Github\cmake-examples-fix\01-basic\A-hello-cmake\build> .\Debug\hello_cmake.exe
+Hello CMake!
+PS E:\Github\cmake-examples-fix\01-basic\A-hello-cmake\build> tree
+卷 文档 的文件夹 PATH 列表
+卷序列号为 0004-3CD9
+E:.
+├─CMakeFiles
+│  ├─3.22.0
+│  │  ├─CompilerIdC
+│  │  │  ├─Debug
+│  │  │  │  └─CompilerIdC.tlog
+│  │  │  └─tmp
+│  │  ├─CompilerIdCXX
+│  │  │  ├─Debug
+│  │  │  │  └─CompilerIdCXX.tlog
+│  │  │  └─tmp
+│  │  └─Debug
+│  │      └─VCTargetsPath.tlog
+│  ├─CMakeTmp
+│  └─f6d610a183e52e653edb1eae3a752570
+├─Debug
+├─hello_cmake.dir
+│  └─Debug
+│      └─hello_cmake.tlog
+└─Win32
+    └─Debug
+        ├─ALL_BUILD
+        │  └─ALL_BUILD.tlog
+        └─ZERO_CHECK
+            └─ZERO_CHECK.tlog
 ----
