@@ -186,3 +186,52 @@ make[2]: Leaving directory `/home/matrim/workspace/cmake-examples/01-basic/hello
 make[1]: Leaving directory `/home/matrim/workspace/cmake-examples/01-basic/hello_headers/build'
 /usr/bin/cmake -E cmake_progress_start /home/matrim/workspace/cmake-examples/01-basic/hello_headers/build/CMakeFiles 0
 ----
+
+
+[source,bash]
+----
+PS E:\Github\cmake-examples-fix\01-basic\B-hello-headers> mkdir build
+
+
+    目录: E:\Github\cmake-examples-fix\01-basic\B-hello-headers
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         2021/12/1     19:52                build
+
+
+PS E:\Github\cmake-examples-fix\01-basic\B-hello-headers> cd .\build\
+PS E:\Github\cmake-examples-fix\01-basic\B-hello-headers\build> cmake ..
+-- Building for: Visual Studio 14 2015
+-- Selecting Windows SDK version  to target Windows 10.0.22000.
+-- The C compiler identification is MSVC 19.0.24245.0
+-- The CXX compiler identification is MSVC 19.0.24245.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: E:/Github/cmake-examples-fix/01-basic/B-hello-headers/build
+PS E:\Github\cmake-examples-fix\01-basic\B-hello-headers\build> cmake --build .
+用于 .NET Framework 的 Microsoft (R) 生成引擎版本 17.0.0+c9eb9dd64
+版权所有(C) Microsoft Corporation。保留所有权利。
+
+  Checking Build System
+  Building Custom Rule E:/Github/cmake-examples-fix/01-basic/B-hello-headers/CMakeLists.txt
+  Hello.cpp
+  main.cpp
+  正在生成代码...
+  hello_headers.vcxproj -> E:\Github\cmake-examples-fix\01-basic\B-hello-headers\build\Debug\hello_headers.exe
+  hello_headers.vcxproj -> E:/Github/cmake-examples-fix/01-basic/B-hello-headers/build/Debug/hello_headers.pdb (Full PDB)
+  Building Custom Rule E:/Github/cmake-examples-fix/01-basic/B-hello-headers/CMakeLists.txt
+PS E:\Github\cmake-examples-fix\01-basic\B-hello-headers\build> .\Debug\hello_headers.exe
+Hello Headers!  
+----
