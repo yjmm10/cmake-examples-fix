@@ -156,3 +156,9 @@ make[2]: Leaving directory `/home/matrim/workspace/cmake-examples/01-basic/F-bui
 make[1]: Leaving directory `/home/matrim/workspace/cmake-examples/01-basic/F-build-type/build'
 /usr/bin/cmake -E cmake_progress_start /home/matrim/workspace/cmake-examples/01-basic/F-build-type/build/CMakeFiles 0
 ----
+
+
+windows
+
+cmake ..
+cmake --build . --config=Release
