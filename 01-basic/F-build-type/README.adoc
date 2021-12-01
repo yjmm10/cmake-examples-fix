@@ -160,5 +160,5 @@ make[1]: Leaving directory `/home/matrim/workspace/cmake-examples/01-basic/F-bui
 
 windows
 
-cmake ..
+cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config=Release
