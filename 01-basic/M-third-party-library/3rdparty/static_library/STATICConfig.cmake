@@ -1,7 +1,0 @@
-set(SHARED_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/include")
-include_directories(${SHARED_INCLUDE_DIRS})
-
-link_directories(${CMAKE_CURRENT_LIST_DIR}/bin)
-
-set(SHARED_LIBS SHARED)
-set(SHARED_FOUND TRUE)
