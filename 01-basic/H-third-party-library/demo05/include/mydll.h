@@ -17,7 +17,6 @@ extern "C"
 #define MYDLL_API _declspec(dllimport) //对调用该dll的应用程序而言，该函数是从dll导入的函数。
 #endif
     MYDLL_API int add(int a, int b);
-    MYDLL_API int add(int a, int b, int c);
 #undef MYDLL_API
 #ifdef _cplusplus
 }
